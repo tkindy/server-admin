@@ -1,9 +1,6 @@
 (ns com.tylerkindy.server-admin.screen
-  (:require [clojure.java.shell :as sh]
-            [clojure.string :as str]))
-
-(defn- sh [command]
-  (sh/sh "sh" "-c" (str/join " " command)))
+  (:require [clojure.string :as str]
+            [com.tylerkindy.server-admin.sh :refer [sh]]))
 
 (defn- parse-screen [line]
   (let [parts (-> line
