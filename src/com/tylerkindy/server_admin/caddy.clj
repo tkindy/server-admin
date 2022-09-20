@@ -12,8 +12,8 @@
          "config/")
        path))
 
-(defn post-config
-  ([path value] (post-config nil path value))
+(defn update-config
+  ([path value] (update-config nil path value))
   ([id path value]
    (client/post (build-config-uri id path)
                 {:body value
