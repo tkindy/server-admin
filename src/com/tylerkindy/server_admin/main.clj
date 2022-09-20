@@ -17,7 +17,7 @@
       first))
 
 (defn swap-caddy [id new-port]
-  (update-config id "dial" (str ":" new-port)))
+  (update-config id "dial" (str "\":" new-port "\"")))
 
 (defn -main [new-jar]
   (let [screen-name "synchro"
