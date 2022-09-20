@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [com.tylerkindy.server-admin.ports :refer [pick-port]]
             [com.tylerkindy.server-admin.screen :refer [find-screen start-screen interrupt-child]]
-            [com.tylerkindy.server-admin.caddy :refer [update-config]]))
+            [com.tylerkindy.server-admin.caddy :refer [update-config]])
+  (:gen-class))
 
 (defn base-screen-name [new-name]
   (-> new-name

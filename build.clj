@@ -20,4 +20,4 @@
   (b/uber {:class-dir class-dir
            :uber-file uber-file
            :basis basis
-           :main 'com.tylerkindy.server-admin.main}))
+           :main 'com.tylerkindy.server_admin.main}))
