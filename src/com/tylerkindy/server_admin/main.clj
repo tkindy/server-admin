@@ -2,7 +2,8 @@
   (:require [clojure.string :as str]
             [com.tylerkindy.server-admin.ports :refer [pick-port]]
             [com.tylerkindy.server-admin.screen :refer [find-screen start-screen interrupt-child]]
-            [com.tylerkindy.server-admin.caddy :refer [update-config]])
+            [com.tylerkindy.server-admin.caddy :refer [update-config]]
+            [com.tylerkindy.server-admin.healthcheck :refer [wait-until-healthy]])
   (:gen-class))
 
 (defn base-screen-name [new-name]
@@ -25,6 +26,11 @@
         new-port (pick-port)]
     (println "Starting new process on port" new-port)
     (start-screen screen-name (str "java -jar " new-jar " --port " new-port))
+
+    (println "Waiting for new service to become healthy")
+    (when (not (wait-until-healthy new-port))
+      (println "Service didn't become healthy before timeout, stopping deploy")
+      (System/exit 1))
 
     (println "Swapping reverse proxy to new service")
     (swap-caddy "synchro_upstream" new-port)
