@@ -38,4 +38,7 @@
     (println "Interrupting old process")
     (interrupt-child old-screen)
 
-    (println "Done!")))
+    (println "Done!")
+
+    ; TODO: find non-daemon threads keeping the JVM alive to remove this call
+    (System/exit 0)))
