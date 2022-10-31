@@ -35,8 +35,9 @@
     (println "Swapping reverse proxy to new service")
     (swap-caddy "synchro_upstream" new-port)
 
-    (println "Interrupting old process")
-    (interrupt-child old-screen)
+    (when old-screen
+      (println "Interrupting old process")
+      (interrupt-child old-screen))
 
     (println "Done!")
 
