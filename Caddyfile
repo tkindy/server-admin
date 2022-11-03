@@ -1,0 +1,4 @@
+synchro.tylerkindy.com {
+  encode zstd gzip
+  reverse_proxy :8080
+}
