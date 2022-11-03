@@ -2,3 +2,17 @@ synchro.tylerkindy.com {
   encode zstd gzip
   reverse_proxy :8080
 }
+
+betrayal.tylerkindy.com {
+  encode zstd gzip
+
+  handle /api/* {
+    reverse_proxy :8081
+  }
+
+  handle {
+    root * /var/betrayal-www
+    try_files {path} /index.html
+    file_server
+  }
+}
