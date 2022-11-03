@@ -1,6 +1,6 @@
 synchro.tylerkindy.com {
   log {
-    output file /var/log/access-synchro.log
+    output file /var/log/websites/access-synchro.log
   }
   encode zstd gzip
   reverse_proxy :8080
@@ -8,7 +8,7 @@ synchro.tylerkindy.com {
 
 betrayal.tylerkindy.com {
   log {
-    output file /var/log/access-betrayal.log
+    output file /var/log/websites/access-betrayal.log
   }
   encode zstd gzip
 
