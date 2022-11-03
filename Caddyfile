@@ -1,9 +1,11 @@
 synchro.tylerkindy.com {
+  log
   encode zstd gzip
   reverse_proxy :8080
 }
 
 betrayal.tylerkindy.com {
+  log
   encode zstd gzip
 
   handle /api/* {
