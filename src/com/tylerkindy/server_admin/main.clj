@@ -20,8 +20,8 @@
 (defn swap-caddy [id new-port]
   (update-config id "dial" (str "\":" new-port "\"")))
 
-(defn -main [new-jar]
-  (let [screen-name "synchro"
+(defn -main [name new-jar]
+  (let [screen-name name
         old-screen (find-old-screen screen-name)
         new-port (pick-port)]
     (println "Starting new process on port" new-port)
@@ -33,7 +33,7 @@
       (System/exit 1))
 
     (println "Swapping reverse proxy to new service")
-    (swap-caddy "synchro_upstream" new-port)
+    (swap-caddy (str name "_upstream") new-port)
 
     (when old-screen
       (println "Interrupting old process")

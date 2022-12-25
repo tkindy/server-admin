@@ -23,3 +23,11 @@ betrayal.tylerkindy.com {
     file_server
   }
 }
+
+jeopardy.tylerkindy.com {
+  log {
+    output file /var/log/websites/access-jeopardy.log
+  }
+  encode zstd gzip
+  reverse_proxy :8082
+}
