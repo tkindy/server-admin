@@ -18,3 +18,7 @@
    (client/post (build-config-uri id path)
                 {:body value
                  :content-type :json})))
+
+(defn load-config [value]
+  (client/post "http://localhost:2019/config/"
+               {:body value, :content-type :json}))
