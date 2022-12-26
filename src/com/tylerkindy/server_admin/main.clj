@@ -35,7 +35,7 @@
              :upstreams [{:dial (str ":" port)}]}]})
 
 (defn update-route [routes route-index host new-port]
-  (assoc-in routes route-index (build-route host new-port)))
+  (assoc routes route-index (build-route host new-port)))
 
 (defn add-route [routes host new-port]
   (concat routes [(build-route host new-port)]))
