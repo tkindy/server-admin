@@ -21,6 +21,6 @@
                  :content-type :json})))
 
 (defn load-config [value]
-  (client/post "http://localhost:2019/config/"
+  (client/post "http://localhost:2019/load"
                {:body (json/generate-string value)
                 :content-type :json}))
