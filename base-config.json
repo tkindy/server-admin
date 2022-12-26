@@ -17,6 +17,7 @@
     "http": {
       "servers": {
         "srv0": {
+          "listen": [":443"],
           "logs": {
             "logger_names": {
               "betrayal.tylerkindy.com": "betrayal"
