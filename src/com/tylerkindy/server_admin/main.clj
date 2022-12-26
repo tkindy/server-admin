@@ -84,8 +84,7 @@
         app-config (config/read-config)]
     (-> caddy-config
         (update-port app-config new-port)
-        (setup-logging app-config)
-        caddy/load-config)))
+        (setup-logging app-config))))
 
 (defn swap-caddy [new-port]
   (caddy/load-config (build-caddy new-port)))
