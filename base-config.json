@@ -1,0 +1,114 @@
+{
+  "logging": {
+    "logs": {
+      "default": {
+        "exclude": ["http.log.access.betrayal"]
+      },
+      "betrayal": {
+        "include": ["http.log.access.betrayal"],
+        "writer": {
+          "output": "file",
+          "filename": "/var/log/websites/access-betrayal.log"
+        }
+      }
+    }
+  },
+  "apps": {
+    "http": {
+      "servers": {
+        "srv0": {
+          "logs": {
+            "logger_names": {
+              "betrayal.tylerkindy.com": "betrayal"
+            }
+          },
+          "routes": [
+            {
+              "handle": [
+                {
+                  "encodings": { "gzip": {}, "zstd": {} },
+                  "handler": "encode",
+                  "prefer": ["zstd", "gzip"]
+                }
+              ]
+            },
+            {
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "group": "betrayal",
+                      "handle": [
+                        {
+                          "handler": "subroute",
+                          "routes": [
+                            {
+                              "handle": [
+                                {
+                                  "handler": "rewrite",
+                                  "strip_path_prefix": "/api"
+                                }
+                              ]
+                            },
+                            {
+                              "handle": [
+                                {
+                                  "handler": "reverse_proxy",
+                                  "upstreams": [{ "dial": ":8081" }]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "match": [{ "path": ["/api/*"] }]
+                    },
+                    {
+                      "group": "betrayal",
+                      "handle": [
+                        {
+                          "handler": "subroute",
+                          "routes": [
+                            {
+                              "handle": [
+                                {
+                                  "handler": "vars",
+                                  "root": "/var/lib/caddy/betrayal-ui"
+                                }
+                              ]
+                            },
+                            {
+                              "handle": [
+                                {
+                                  "handler": "rewrite",
+                                  "uri": "{http.matchers.file.relative}"
+                                }
+                              ],
+                              "match": [
+                                {
+                                  "file": {
+                                    "try_files": [
+                                      "{http.request.uri.path}",
+                                      "/index.html"
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "match": [{ "host": ["betrayal.tylerkindy.com"] }],
+              "terminal": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}
