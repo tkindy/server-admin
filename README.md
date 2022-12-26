@@ -6,7 +6,7 @@ Namely:
 - [synchro](https://github.com/tkindy/synchro)
 - [jeopardy](https://github.com/tkindy/jeopardy)
 
-These projects are both single services that simply require reverse-proxying.
+These projects are both single JVM services that simply require reverse-proxying.
 That's all this tool supports right now, but I hope to expand it to cover my other deploy needs.
 
 This tool:
