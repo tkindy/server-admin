@@ -32,7 +32,8 @@
 (defn build-route [host port]
   {:match [{:host [host]}]
    :handle [{:handler :reverse_proxy
-             :upstreams [{:dial (str ":" port)}]}]})
+             :upstreams [{:dial (str ":" port)}]}]
+   :terminal true})
 
 (defn update-route [routes route-index host new-port]
   (assoc routes route-index (build-route host new-port)))
