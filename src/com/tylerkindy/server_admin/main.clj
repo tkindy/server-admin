@@ -80,15 +80,14 @@
       (add-logger app-config)
       (connect-logger name)))
 
-(defn build-caddy [new-port]
-  (let [caddy-config (caddy/get-config)
-        app-config (config/read-config)]
+(defn build-caddy [app-config new-port]
+  (let [caddy-config (caddy/get-config)]
     (-> caddy-config
         (update-port app-config new-port)
         (setup-logging app-config))))
 
-(defn swap-caddy [new-port]
-  (caddy/load-config (build-caddy new-port)))
+(defn swap-caddy [app-config new-port]
+  (caddy/load-config (build-caddy app-config new-port)))
 
 (defn -main [new-jar]
   (let [app-config (config/read-config)
@@ -104,7 +103,7 @@
       (System/exit 1))
 
     (println "Swapping reverse proxy to new service")
-    (swap-caddy new-port)
+    (swap-caddy app-config new-port)
 
     (when old-screen
       (println "Interrupting old process")
