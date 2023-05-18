@@ -75,7 +75,7 @@
                               "handle": [
                                 {
                                   "handler": "vars",
-                                  "root": "/var/lib/caddy/betrayal-ui"
+                                  "root": "/home/betrayal/www"
                                 }
                               ]
                             },
@@ -94,6 +94,13 @@
                                       "/index.html"
                                     ]
                                   }
+                                }
+                              ]
+                            },
+                            {
+                              "handle": [
+                                {
+                                  "handler": "file_server"
                                 }
                               ]
                             }
